@@ -1,5 +1,9 @@
+import { notFound } from "next/navigation";
 import style from "./page.module.css";
 
+export function generateStaticParams() {
+  return [{id: "1"}, {id: "2"}, {id: "3"}]
+}
 
 export default async function Page({
   params,
@@ -11,7 +15,9 @@ export default async function Page({
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${params.id}`
   );
   if(!response.ok) {
-    return <div>오류가 발생했습니다..</div>
+    if(response.status === 404) {
+      notFound();
+    }
   }
 
   const book = await response.json();

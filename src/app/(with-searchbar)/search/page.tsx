@@ -1,5 +1,6 @@
 import BookItem from "@/components/book-item";
 import { BookData } from "@/types";
+import { cache } from "react";
 
 export default async function Page({
   searchParams,
@@ -7,7 +8,8 @@ export default async function Page({
   searchParams: {q?: string };
 }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${searchParams.q}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${searchParams.q}`,
+    { cache: "force-cache" }
   );
   if(!response.ok) {
     return <div>오류가 발생했습니다..</div>

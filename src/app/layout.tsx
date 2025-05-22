@@ -5,7 +5,8 @@ import { BookData } from "@/types";
 
 async function Footer() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    {cache: "force-cache"}
   );
   if(!response.ok) {
     return <div>오류가 발생했습니다!</div>
@@ -21,9 +22,6 @@ async function Footer() {
     </footer>
   )
 }
-
-// Next에서는 중복된 요청에 대해서 리퀘스트 메모이제이션을 통해 자동으로 캐시해줌.
-// 그렇게 되면 모든 컴포넌트에서 한번의 요청으로 사용
 
 export default function RootLayout({
   children,
